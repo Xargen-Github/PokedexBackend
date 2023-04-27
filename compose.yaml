@@ -1,0 +1,11 @@
+services:
+  pokedex_backend:
+    build: .
+    stdin_open: true
+    tty: true
+    volumes:
+      - type: bind
+        source: ./src
+        target: /home
+    ports:
+      - "8000:8000"
