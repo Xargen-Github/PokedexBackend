@@ -1,11 +1,24 @@
 services:
   pokedex_backend:
-    build: .
+    build: ./backend
     stdin_open: true
     tty: true
     volumes:
       - type: bind
-        source: ./src
+        source: ./backend/src
         target: /home
     ports:
       - "8000:8000"
+  pokedex_database:
+    build: ./database
+    stdin_open: true
+    tty: true
+    volumes:
+      - type: bind
+        source: ./database/src
+        target: /home
+    ports:
+      - "8001:8001"
+    environment:
+      POSTGRES_PASSWORD: very_secure
+      PGDATA: /home/data/pgdata
