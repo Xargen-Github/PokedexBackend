@@ -6,4 +6,4 @@ from .pokemon import Pokemon
 class Team(BaseModel):
     id: int
     name: str
-    pokemons: List[Pokemon]
+    pokemon: List[Pokemon]

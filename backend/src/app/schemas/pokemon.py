@@ -1,8 +1,8 @@
 from pydantic import BaseModel
 from typing import List
 
-from .sprites import Sprites
-from .type import TypeSlot
+from sprites import Sprites
+from type_slot import TypeSlot
 
 class Pokemon(BaseModel):
     id: int

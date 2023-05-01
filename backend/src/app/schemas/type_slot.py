@@ -1,7 +1,5 @@
 from pydantic import BaseModel
-
-class Type(BaseModel):
-    name: str
+from .type import Type
     
 class TypeSlot(BaseModel):
     type: Type
