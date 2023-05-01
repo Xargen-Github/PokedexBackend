@@ -3,7 +3,16 @@ from typing import List
 
 from .pokemon import Pokemon
 
-class Team(BaseModel):
-    id: int
+
+class TeamBase(BaseModel):
     name: str
+    
+class TeamCreate(TeamBase):
+    pass
+
+class Team(TeamBase):
+    id: int
     pokemon: List[Pokemon]
+    
+    class Config:
+        orm_mode = True

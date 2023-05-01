@@ -18,9 +18,10 @@ services:
         source: ./database/src
         target: /home
     ports:
-      - "5433:5433"
+      - "5432:5432"
     environment:
       POSTGRES_USER: trainer
       POSTGRES_PASSWORD: pikachu
       POSTGRES_DB: pokedex
       PGDATA: /home/data/pgdata
+      POSTGRES_HOST: 0.0.0.0

@@ -1,10 +1,13 @@
 from pydantic import BaseModel
 
-class BaseSprites(BaseModel):
-    id: int
+class SpritesBase(BaseModel):
     front_default: str
     
-class Sprites(BaseSprites):
+class SpritesCreate(SpritesBase):
+    pass
+    
+class Sprites(SpritesBase):
+    id: int
     front_female: str
     front_shiny: str
     front_shiny_female: str
@@ -12,3 +15,6 @@ class Sprites(BaseSprites):
     back_female: str
     back_shiny: str
     back_shiny_female: str
+    
+    class Config:
+        orm_mode = True
