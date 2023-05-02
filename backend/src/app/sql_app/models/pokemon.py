@@ -4,11 +4,11 @@ from typing import List
 
 from ..database import Base
 
-from sprites import Sprites
-from type_slot import TypeSlot
-from move import Move
+from .sprites import Sprites
+from .type_slot import TypeSlot
+from .move import Move
 from .stat import Stat
-from ability import Ability
+from .ability import Ability
     
 class Pokemon(Base):
     __tablename__ = "pokemon"
@@ -25,6 +25,6 @@ class Pokemon(Base):
     order = Column(Float)
     species = Column(String)
     stats = Mapped[List["Stat"]]
-    abilities = Mapped[List[Ability]]
-    form: Column(String)
+    abilities = Mapped[List["Ability"]]
+    form = Column(String)
     

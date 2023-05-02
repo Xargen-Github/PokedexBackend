@@ -8,4 +8,4 @@ class TypeSlot(Base):
     __tablename__ = "type_slots"
     
     id = Column(Integer, primary_key=True, index=True)
-    type = Mapped["Type"] = relationship()
+    pokemon_type = Mapped["Type"]

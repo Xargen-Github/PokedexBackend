@@ -22,8 +22,12 @@ async def root():
     return {"message": "Hello World"}
 
 @app.get("/api/v1/pokemons")
-async def v1pokemons() -> list[Pokemon]:
-    return []
+async def v1pokemons(db: Session = Depends(get_db)):
+    return crud.get_all_pokemon(db=db)
+
+@app.get("/api/v1/pokemons/{id}")
+async def v1pokemons(id, db: Session = Depends(get_db)):
+    return crud.get_pokemon_by_id(db=db, id=id)
 
 @app.post("/users/", response_model=schemas.user.User)
 def create_user(user: schemas.user.UserCreate, db: Session = Depends(get_db)):

@@ -2,7 +2,26 @@ from sqlalchemy.orm import Session
 
 from .models.user import User
 from schemas.user import UserCreate
+from .models.pokemon import Pokemon
+from schemas.sort_enum import SortEnum
 
+def get_all_pokemon(db: Session, sort: SortEnum = SortEnum.NAME_ASC):
+    match sort:
+        case SortEnum.NAME_ASC:
+            sorter = Pokemon.name.asc()
+        case SortEnum.NAME_DESC:
+            sorter = Pokemon.name.desc()
+        case SortEnum.ID_ASC:
+            sorter = Pokemon.id.asc()
+        case SortEnum.ID_DESC:
+            sorter = Pokemon.id.asc()
+        case _:
+            sorter = Pokemon.name.asc()
+            
+    return db.query(Pokemon).order_by(sorter)
+
+def get_pokemon_by_id(db: Session, id: int):
+    return db.query(Pokemon).filter(Pokemon.id == id).first()
 
 def get_user_by_email(db: Session, email: str):
     return db.query(User).filter(User.email == email).first()
