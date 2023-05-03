@@ -9,17 +9,17 @@ from schemas.sort_enum import SortEnum
 def get_all_pokemon(db: Session, sort: SortEnum = SortEnum.NAME_ASC):
     match sort:
         case SortEnum.NAME_ASC:
-            sorter = Pokemon.name.asc()
+            sorter = (Pokemon.name.asc())
         case SortEnum.NAME_DESC:
-            sorter = Pokemon.name.desc()
+            sorter = (Pokemon.name.desc())
         case SortEnum.ID_ASC:
-            sorter = Pokemon.id.asc()
+            sorter = (Pokemon.id.asc())
         case SortEnum.ID_DESC:
-            sorter = Pokemon.id.asc()
+            sorter = (Pokemon.id.desc())
         case _:
-            sorter = Pokemon.name.asc()
+            sorter = (Pokemon.name.asc())
             
-    return db.query(Pokemon).order_by(sorter)
+    return db.query(Pokemon).order_by(sorter).all()
 
 def get_pokemon_by_id(db: Session, id: int):
     return db.query(Pokemon).filter(Pokemon.id == id).first()

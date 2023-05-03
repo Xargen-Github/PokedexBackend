@@ -3,6 +3,7 @@ from schemas.pokemon import Pokemon
 from sqlalchemy.orm import Session
 from sql_app.database import SessionLocal
 import schemas
+from schemas.sort_enum import SortEnum
 
 from sql_app import crud
 
@@ -20,8 +21,8 @@ async def root():
     return {"message": "Hello World"}
 
 @app.get("/api/v1/pokemons")
-async def v1pokemons(db: Session = Depends(get_db)):
-    return crud.get_all_pokemon(db=db)
+async def v1pokemons(db: Session = Depends(get_db), sort: SortEnum = SortEnum.NAME_ASC):
+    return crud.get_all_pokemon(db=db, sort=sort)
 
 @app.get("/api/v1/pokemons/{id}")
 async def v1pokemons(id, db: Session = Depends(get_db)):
