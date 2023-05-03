@@ -1,12 +1,10 @@
 from fastapi import FastAPI, Depends, HTTPException
 from schemas.pokemon import Pokemon
 from sqlalchemy.orm import Session
-from sql_app.database import Base, engine, SessionLocal
+from sql_app.database import SessionLocal
 import schemas
 
 from sql_app import crud
-
-Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 

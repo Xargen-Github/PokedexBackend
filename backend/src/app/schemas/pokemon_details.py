@@ -1,8 +1,8 @@
 from typing import List
 
 from .pokemon import Pokemon
-from .stat import Stat
-from .ability import Ability
+from .stat import StatBase
+from .ability import AbilityBase
 
 class PokemonDetails(Pokemon):
     height: float
@@ -10,7 +10,7 @@ class PokemonDetails(Pokemon):
     moves: list
     order: float
     species: str
-    stats: List[Stat]
-    abilities: List[Ability]
+    stats: List[StatBase]
+    abilities: List[AbilityBase]
     form: str
     

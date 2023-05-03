@@ -1,9 +1,9 @@
 from pydantic import BaseModel
-from .type import Type
+from .type import TypeBase
     
 
 class TypeSlotBase(BaseModel): 
-    type: Type
+    type: TypeBase
     slot: int
     
 class TypeSlotCreate(TypeSlotBase):
