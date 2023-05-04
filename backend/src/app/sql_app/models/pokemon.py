@@ -25,5 +25,3 @@ class Pokemon(Base):
     abilities: Mapped[List["Ability"]] = relationship(back_populates="pokemon")
     form = Column(String, nullable=True)
     
-    #teams: Mapped[List["Team"]] = relationship(back_populates="pokemons")
-    

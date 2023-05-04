@@ -16,3 +16,7 @@ class Team(TeamBase):
     
     class Config:
         orm_mode = True
+        
+class TeamUpdate(BaseModel):
+    pokemon: List[int]
+    

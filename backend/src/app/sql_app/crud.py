@@ -12,6 +12,8 @@ from .models.version_group_detail import VersionGroupDetail
 from .models.type import Type
 from schemas.pokemon_details import PokemonDetails
 from schemas.sort_enum import SortEnum
+from schemas.team import TeamCreate
+from .models.team import Team
 
 def get_all_pokemon(db: Session, sort: SortEnum = SortEnum.NAME_ASC):
     match sort:
@@ -30,6 +32,9 @@ def get_all_pokemon(db: Session, sort: SortEnum = SortEnum.NAME_ASC):
 
 def get_pokemon_by_id(db: Session, id: int):
     return db.query(Pokemon).filter(Pokemon.id == id).first()
+
+def get_pokemon_by_ids(db: Session, ids: list[int]):
+    return db.query(Pokemon).filter(Pokemon.id.in_(ids)).all()
 
 def add_pokemon(db: Session, pokemon: PokemonDetails):
     print(pokemon.name)
@@ -149,3 +154,23 @@ def create_user(db: Session, user: UserCreate):
     db.commit()
     db.refresh(db_user)
     return db_user
+
+def get_teams(db: Session):
+    return db.query(Team).order_by(Team.name.asc()).all();
+
+def create_team(db: Session, team: TeamCreate):
+    db_team = Team(**team.dict())
+    db.add(db_team)
+    db.commit()
+    db.refresh(db_team)
+    return db_team
+
+def get_team_by_id(db: Session, id: int):
+    return db.query(Team).filter(Team.id == id).first()
+
+def update_team(db:Session, db_team: Team, db_pokemon: list[Pokemon]):
+    db_team.pokemon = db_pokemon
+    db.add(db_team)
+    db.commit()
+    db.refresh(db_team)
+    return db_team
