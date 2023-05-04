@@ -19,3 +19,16 @@ cd app
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 In the browser, surf to: http://localhost:8000/docs
+
+## Command
+Import data from file:
+```bash
+#In the 'app' directory
+./pokedex_import.py file *file_path*
+```
+
+Import data from https://pokeapi.co/ :
+```bash
+#In the 'app' directory
+./pokedex_import.py external *limit*
+```
