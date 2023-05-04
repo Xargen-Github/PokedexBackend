@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 from typing import List
 
-from .pokemon import PokemonBase
+from .pokemon_details import PokemonDetails
 
 
 class TeamBase(BaseModel):
@@ -12,7 +12,7 @@ class TeamCreate(TeamBase):
 
 class Team(TeamBase):
     id: int
-    pokemon: List[PokemonBase]
+    pokemon: List[PokemonDetails] | None = None
     
     class Config:
         orm_mode = True

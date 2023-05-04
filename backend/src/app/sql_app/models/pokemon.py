@@ -1,30 +1,29 @@
 from sqlalchemy import Boolean, Column, Float, ForeignKey, Integer, String
-from sqlalchemy.orm import relationship, Mapped
-from typing import List
+from sqlalchemy.orm import relationship, Mapped, mapped_column
+from typing import List, Optional
 
 from ..database import Base
-
-from .sprites import Sprites
-from .type_slot import TypeSlot
-from .move import Move
-from .stat import Stat
-from .ability import Ability
     
 class Pokemon(Base):
     __tablename__ = "pokemon"
     
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String)
-    sprites = Mapped["Sprites"]
-    types = Mapped[List["TypeSlot"]]
+    
+    sprites_id: Mapped[Optional[int]] = mapped_column(ForeignKey("sprites.id"))
+    sprites: Mapped[Optional["Sprites"]] = relationship(back_populates="pokemon")
+
+    types: Mapped[List["TypeSlot"]] = relationship(back_populates="pokemon")
     
     #Pokemon details
-    height = Column(Float)
-    weight = Column(Float)
-    moves = Mapped[List["Move"]]
-    order = Column(Float)
-    species = Column(String)
-    stats = Mapped[List["Stat"]]
-    abilities = Mapped[List["Ability"]]
-    form = Column(String)
+    height = Column(Float, nullable=True)
+    weight = Column(Float, nullable=True)
+    moves: Mapped[List["Move"]] = relationship(back_populates="pokemon")
+    order = Column(Float, nullable=True)
+    species = Column(String, nullable=True)
+    stats: Mapped[List["Stat"]] = relationship(back_populates="pokemon")
+    abilities: Mapped[List["Ability"]] = relationship(back_populates="pokemon")
+    form = Column(String, nullable=True)
+    
+    #teams: Mapped[List["Team"]] = relationship(back_populates="pokemons")
     

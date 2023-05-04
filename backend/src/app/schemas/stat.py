@@ -7,8 +7,8 @@ class StatCreate(StatBase):
     pass
     
 class Stat(StatBase):
-    base_stat: float
-    effort: float
+    base_stat: float | None = None
+    effort: float | None = None
     
     class Config:
         orm_mode = True

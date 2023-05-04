@@ -7,8 +7,8 @@ class AbilityCreate(AbilityBase):
     pass
     
 class Ability(AbilityBase):
-    is_hidden: bool
-    slot: int
+    is_hidden: bool | None = None
+    slot: int | None = None
     
     class Config:
         orm_mode = True

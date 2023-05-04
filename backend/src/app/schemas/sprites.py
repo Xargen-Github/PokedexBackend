@@ -9,13 +9,13 @@ class SpritesCreate(SpritesBase):
     
 class Sprites(SpritesBase):
     id: int
-    front_female: str
-    front_shiny: str
-    front_shiny_female: str
-    back_default: str
-    back_female: str
-    back_shiny: str
-    back_shiny_female: str
+    front_female: str | None = None
+    front_shiny: str | None = None
+    front_shiny_female: str | None = None
+    back_default: str | None = None
+    back_female: str | None = None
+    back_shiny: str | None = None
+    back_shiny_female: str | None = None
     
     class Config:
         orm_mode = True

@@ -4,9 +4,17 @@ import json
 from sql_app import database
 from sql_app import crud
 from schemas.pokemon_details import PokemonDetails
+from sql_app.models.pokemon import Pokemon
 import requests
 
 def to_pokemon_details(pokemon_data):
+    pokemon_data["sprites"]["id"] = pokemon_data["id"]
+    for move in pokemon_data["moves"]:
+        move["move"] = move["move"]["name"]
+        for version_group_detail in move["version_group_details"]:
+            version_group_detail["move_learn_method"] = version_group_detail["move_learn_method"]["name"]
+            version_group_detail["version_group"] = version_group_detail["version_group"]["name"]
+    
     pokemon_data["species"] = pokemon_data["species"]["name"]
     for stat in pokemon_data["stats"]:
         stat["stat"] =  stat["stat"]["name"]
@@ -16,14 +24,14 @@ def to_pokemon_details(pokemon_data):
     forms = pokemon_data["forms"]
     if len(forms) > 0:
         pokemon_data["form"] = forms[0]["name"]
-    return PokemonDetails(**pokemon_data)
+    pd = PokemonDetails(**pokemon_data)
+    return pd
 
 def import_data(data):
     db = database.SessionLocal()
-    print(data[0]["forms"])
     for pokemon_data in data:
         pd = to_pokemon_details(pokemon_data=pokemon_data)
-        print(crud.add_pokemon(db, pd))
+        crud.add_pokemon(db, pd)
             
     db.close()
 
@@ -45,7 +53,7 @@ if len(sys.argv) > 1:
                 res = requests.get(f"https://pokeapi.co/api/v2/pokemon/{i}")
                 pokemon = res.json()
                 data.append(pokemon)
-            print(data)
+            data
             import_data(data=data)
         case _:
             print("Use 'file' or 'external'")

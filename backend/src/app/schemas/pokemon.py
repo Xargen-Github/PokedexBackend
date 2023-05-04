@@ -1,8 +1,8 @@
 from pydantic import BaseModel
 from typing import List
 
-from .sprites import SpritesBase
-from .type_slot import TypeSlotBase
+from .sprites import Sprites
+from .type_slot import TypeSlot
 
 class PokemonBase(BaseModel):
     name: str
@@ -12,8 +12,8 @@ class PokemonCreate(PokemonBase):
 
 class Pokemon(PokemonBase):
     id: int
-    sprites: SpritesBase
-    types: List[TypeSlotBase]
+    sprites: Sprites | None = None
+    types: List[TypeSlot] | None = None
     
     class Config:
         orm_mode = True
